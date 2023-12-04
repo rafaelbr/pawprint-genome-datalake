@@ -1,0 +1,6 @@
+apache-airflow[aws]==2.7.1
+jupyter
+pandas
+awswrangler
+great_expectations
+boto3

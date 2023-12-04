@@ -1,0 +1,25 @@
+{
+  "databases": [
+    {
+      "name": "taxonomy",
+      "tables": [
+        {
+          "name": "taxonomy",
+          "preprocess": "preprocess_taxonomy_table",
+          "partition": ""
+        }
+      ]
+    },
+    {
+      "name": "genome",
+      "tables": [
+          {
+            "name": "dataset_report",
+            "preprocess": "preprocess_genome_dataset_table",
+            "partition": "date"
+          }
+      ]
+    }
+  ]
+
+}

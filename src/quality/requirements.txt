@@ -1,0 +1,4 @@
+pandas
+awswrangler
+great_expectations
+boto3

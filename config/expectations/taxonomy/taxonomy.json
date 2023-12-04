@@ -1,0 +1,96 @@
+{
+  "expectation_suite_name": "taxonomy.taxonomy",
+  "meta": {
+    "great_expectations_version": "0.15.19",
+    "data_asset_type": "Dataset"
+  },
+  "expectations": [
+    {
+      "expectation_type": "expect_table_columns_to_match_set",
+      "kwargs": {
+          "column_list": [
+            "query",
+            "taxonomy.tax_id",
+            "taxonomy.organism_name",
+            "taxonomy.common_name",
+            "taxonomy.lineage",
+            "taxonomy.rank",
+            "taxonomy.has_described_species_name",
+            "taxonomy.children",
+            "taxonomy.descendent_with_described_species_names_count",
+            "taxonomy.counts"
+          ]
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_of_type",
+      "kwargs": {
+          "column": "query",
+          "type_": "list"
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_of_type",
+      "kwargs": {
+          "column": "taxonomy.tax_id",
+          "type_": "long"
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_of_type",
+      "kwargs": {
+          "column": "taxonomy.organism_name",
+          "type_": "str"
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_of_type",
+      "kwargs": {
+          "column": "taxonomy.common_name",
+          "type_": "str"
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_of_type",
+      "kwargs": {
+          "column": "taxonomy.lineage",
+          "type_": "list"
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_of_type",
+      "kwargs": {
+          "column": "taxonomy.children",
+          "type_": "list"
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_of_type",
+      "kwargs": {
+          "column": "taxonomy.descendent_with_described_species_names_count",
+          "type_": "float"
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_of_type",
+      "kwargs": {
+          "column": "taxonomy.rank",
+          "type_": "str"
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_of_type",
+      "kwargs": {
+          "column": "taxonomy.has_described_species_name",
+          "type_": "bool"
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_of_type",
+      "kwargs": {
+          "column": "taxonomy.counts",
+          "type_": "list"
+      }
+    }
+  ]
+}
