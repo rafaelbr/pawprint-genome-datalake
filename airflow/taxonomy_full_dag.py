@@ -71,7 +71,7 @@ with DAG(
         task_id='save_to_s3',
         aws_conn_id='AWS-PAWPRINT',
         filename='/opt/airflow/temp/taxonomy_full/taxonomy.json',
-        dest_key='taxonomy/taxonomy/taxonomy_full.json',
+        dest_key='pending/taxonomy/taxonomy/taxonomy_full.json',
         dest_bucket='geekfox-pawprint-raw',
         replace=True
     )

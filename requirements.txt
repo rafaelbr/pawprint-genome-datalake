@@ -4,3 +4,8 @@ pandas
 awswrangler
 great_expectations
 boto3
+pyspark
+streamlit
+streamlit-aggrid
+pydantic
+jsonschema

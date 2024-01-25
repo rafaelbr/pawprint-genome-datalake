@@ -48,7 +48,9 @@ O projeto está estruturado da seguinte forma:
 ├─────── config_files                       <- Arquivos de configuração para as pipelines de ingestão
 ├───────────── possible_taxons.json         <- Taxonomias selecionadas para ingestão
 ├── config                                  <- Arquivos de configuração do projeto
-├─────── expectations                       <- Suites do great-expectations para as tabelas
+├─────── schemas                            <- Arquivos JSON Schema para os dados RAW
+├─────── utils                              <- Arquivos uteis para o projeto
+├───────────── dataset_report_columns.json  <- Colunas de interesse para a tabela de reports
 ├─────── config.json                        <- Arquivo de configuração para o Data Quality
 ├── docs                                    <- Arquivos de documentação
 ├── notebooks                               <- Notebooks para testes, experimentação e validação dos dados
@@ -63,6 +65,10 @@ O projeto está estruturado da seguinte forma:
 no S3.
 - Para criar a estrutura, basta configurar o arquivo config.tfvars no diretório terraform com
 os dados desejados (nomes de buckets, região, etc) e rodar o terraform.
+- É necessário criar os arquivos ZIP das layers lambda, para isso basta executar 
+```pip -r requirements.txt -t python/``` no diretório da layer e depois compactar o diretório python.
+Deve-se renomear cada ZIP para o nome do diretório da layer (ex: json_handler.zip). Os
+arquivos ZIP devem estar obrigatoriamente abaixo de lambda-layers.
 
 ## Arquivos de configuração
 

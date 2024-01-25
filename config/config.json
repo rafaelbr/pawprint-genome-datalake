@@ -6,6 +6,8 @@
         {
           "name": "taxonomy",
           "preprocess": "preprocess_taxonomy_table",
+          "trusted_process": "geekfox-pawprint-processing-taxonomy",
+          "records_node": "taxonomy_nodes",
           "partition": ""
         }
       ]
@@ -16,6 +18,8 @@
           {
             "name": "dataset_report",
             "preprocess": "preprocess_genome_dataset_table",
+            "trusted_process": "geekfox-pawprint-processing-genome",
+            "records_node": "reports",
             "partition": "date"
           }
       ]

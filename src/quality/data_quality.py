@@ -4,13 +4,11 @@ import logging
 import os
 import boto3
 import pandas as pd
+import jsonschema
 
 import pre_process
 
-from great_expectations.data_context import BaseDataContext
-from great_expectations.data_context.types.base import DatasourceConfig, DataContextConfig
-from great_expectations.dataset import PandasDataset
-import great_expectations as gx
+from urllib.parse import unquote
 
 CONFIG_BUCKET = os.getenv('CONFIG_BUCKET')
 CONFIG_PATH = os.getenv('CONFIG_PATH')
@@ -54,15 +52,15 @@ def check_file_exists_s3(bucket, key):
 def check_database_config(bucket, key):
     key_parts = key.split('/')
 
-    if len(key_parts) < 3:
+    if len(key_parts) < 4:
         logger.error('Invalid key')
         return None
 
-    suggested_database = key_parts[0]
-    suggested_table = key_parts[1]
+    suggested_database = key_parts[1]
+    suggested_table = key_parts[2]
     partition = ""
-    if len(key_parts) > 3:
-        partition = key_parts[2]
+    if len(key_parts) > 4:
+        partition = key_parts[3]
     file = key_parts[-1]
 
     data = None
@@ -76,6 +74,8 @@ def check_database_config(bucket, key):
                             'table': t['name'],
                             'partition': '',
                             'preprocess': t['preprocess'],
+                            'trusted_process': t['trusted_process'],
+                            'records_node': t['records_node']
                         }
                     elif t['partition'] == partition.split('=')[0]:
                         data = {
@@ -83,38 +83,55 @@ def check_database_config(bucket, key):
                             'table': t['name'],
                             'partition': partition,
                             'preprocess': t['preprocess'],
+                            'trusted_process': t['trusted_process'],
+                            'records_node': t['records_node']
                         }
                     break
             break
     return data
 
 
-def validate_with_great_expectations(data):
-    data_context_config = DataContextConfig(
-        datasources={
-            "pandas_datasource": DatasourceConfig(
-                class_name="PandasDatasource"
-            )
-        },
-        stores={
-            "expectations_S3_store": {
-                "class_name": "ExpectationsStore",
-                "store_backend": {
-                    "class_name": "TupleS3StoreBackend",
-                    "bucket": CONFIG_BUCKET,
-                    "prefix": GX_PATH
+def validate_against_schema(data):
+    # get schema file
+    schema = json.loads(read_from_s3(AWS_RESOURCES_BUCKET, f'schemas/{data["info"]["table"]}_schema.json'))
+
+    # adjust schema to match list of records
+    properties = schema['properties']
+
+    schema = {
+        '$schema': 'http://json-schema.org/draft-04/schema#',
+        'type': 'object',
+        'properties': {
+            'taxonomy_nodes': {
+                'type': 'array',
+                'items': {
+                    'type': 'object',
+                    'properties': properties
                 }
             }
-        },
-        expectations_store_name="expectations_S3_store"
-    )
+        }
+    }
 
-    context = gx.get_context(data_context_config)
-    suite = context.get_expectation_suite('{}.{}'.format(data['info']['database'], data['info']['table']))
-    batch = PandasDataset(data['df'], expectation_suite=suite)
-    results = batch.validate()
+    schema['properties']['taxonomy_nodes']['properties'] = properties
 
-    return results
+    body = read_from_s3(data['bucket'], data['key'])
+    json_data = json.loads(body)
+
+    try:
+        jsonschema.validate(json_data, schema)
+        return {
+            'success': True,
+            'results': {}
+        }
+    except Exception as e:
+        logger.error('Schema validation failed')
+        return {
+            'success': False,
+            'results': {
+                'error': str(e.message),
+            }
+        }
+
 
 def process_s3_file(bucket, key):
     data = check_database_config(bucket, key)
@@ -148,25 +165,6 @@ def send_to_sns(message):
     response = topic.publish(Message=message)
     return response
 
-def format_report(results):
-    report = {
-        'success': False,
-        'results': []
-    }
-
-    if results['success']:
-        report['success'] = True
-        return report
-
-    for result in results['results']:
-        report['results'].append({
-            'expectation_type': result['expectation_config']['expectation_type'],
-            'kwargs': result['expectation_config']['kwargs'],
-            'success': result['success'],
-            'result': result['result']
-        })
-
-    return report
 
 def format_queue_message(data):
     return {
@@ -180,7 +178,11 @@ def lambda_handler(event, context):
 
     for record in event['Records']:
         bucket = record['s3']['bucket']['name']
-        key = record['s3']['object']['key']
+        key = unquote(record['s3']['object']['key'])
+
+        if not 'pending' in key.split('/'):
+            logger.info('File is not pending')
+            continue
 
         logger.info('Starting quality validation - Bucket: {}, Key: {}'.format(bucket, key))
 
@@ -194,13 +196,11 @@ def lambda_handler(event, context):
             logger.error('No config matched the file')
             continue
 
-        results = validate_with_great_expectations(data)
+        results = validate_against_schema(data)
 
-        report = format_report(results)
+        send_to_sns(json.dumps(results))
 
-        send_to_sns(json.dumps(report))
-
-        if report['success']:
+        if results['success']:
             logger.info('Quality finished - Validation successful')
             send_to_sqs(json.dumps(format_queue_message(data)))
             continue

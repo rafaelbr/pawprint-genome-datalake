@@ -1,0 +1,4 @@
+awswrangler
+pandas
+streamlit
+streamlit-aggrid

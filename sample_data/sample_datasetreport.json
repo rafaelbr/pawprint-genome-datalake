@@ -1,0 +1,204 @@
+{
+   "accession":"GCA_014108235.1",
+   "current_accession":"GCA_014108235.1",
+   "paired_accession":"GCF_014108235.1",
+   "source_database":"SOURCE_DATABASE_GENBANK",
+   "organism":{
+      "tax_id":51298,
+      "organism_name":"Myotis myotis",
+      "infraspecific_names":{
+         "isolate":"mMyoMyo1",
+         "sex":"female"
+      }
+   },
+   "assembly_info":{
+      "assembly_level":"Scaffold",
+      "assembly_status":"current",
+      "paired_assembly":{
+         "accession":"GCF_014108235.1",
+         "status":"current",
+         "annotation_name":"NCBI Myotis myotis Annotation Release 100",
+         "changed":"chromosome MT."
+      },
+      "assembly_name":"mMyoMyo1.p",
+      "assembly_type":"haploid",
+      "bioproject_lineage":[
+         {
+            "bioprojects":[
+               {
+                  "accession":"PRJNA628559",
+                  "title":"Myotis myotis isolate:mMyoMyo1 Genome sequencing and assembly",
+                  "parent_accessions":[
+                     "PRJNA489245",
+                     "PRJNA674393"
+                  ]
+               },
+               {
+                  "accession":"PRJNA489245",
+                  "title":"Bat1K Project",
+                  "parent_accessions":[
+                     "PRJNA533106"
+                  ]
+               },
+               {
+                  "accession":"PRJNA533106",
+                  "title":"Earth BioGenome Project (EBP)"
+               },
+               {
+                  "accession":"PRJNA674393",
+                  "title":"Myotis myotis Umbrella project",
+                  "parent_accessions":[
+                     "PRJNA489243"
+                  ]
+               },
+               {
+                  "accession":"PRJNA489243",
+                  "title":"Vertebrate Genomes Project",
+                  "parent_accessions":[
+                     "PRJNA533106"
+                  ]
+               },
+               {
+                  "accession":"PRJNA533106",
+                  "title":"Earth BioGenome Project (EBP)"
+               }
+            ]
+         }
+      ],
+      "bioproject_accession":"PRJNA628559",
+      "release_date":"2020-08-13",
+      "submitter":"Bat1K",
+      "sequencing_tech":"PacBio Sequel CLR; 10X Genomics chromium linked reads; Bionano Genomics; Phase Genomics HiC; PacBio Sequel IsoSeq",
+      "assembly_method":"DAmar v. APRIL-2019; Bionano Solve DLS v. 3.3; Salsa2 HiC v. git commit: e3ae7d8; GenomicConsensus v. git commit: 038de5c; longranger align v. 2.2.0; Freebayes v. 1.2.0; HiGlass manual curation v. 1.5",
+      "biosample":{
+         "accession":"SAMN14734277",
+         "last_updated":"2020-05-05T09:07:47.809",
+         "publication_date":"2020-04-27T00:00:00.000",
+         "submission_date":"2020-04-27T02:18:04.800",
+         "sample_ids":[
+            {
+               "label":"Sample name",
+               "value":"Myotis myotis (Greater mouse-eared bat) for Bat1K reference genome"
+            },
+            {
+               "db":"SRA",
+               "value":"SRS6571162"
+            }
+         ],
+         "description":{
+            "title":"Animal sample from Myotis myotis",
+            "organism":{
+               "tax_id":51298,
+               "organism_name":"Myotis myotis"
+            },
+            "comment":"The greater mouse-eared bat (Myotis myotis) is a European species of bat in the family Vespertilionidae. The sample was collected by Emma Teeling and Sebastien Puechmaille from University College Dublin. This sample is being used to generate chromosomal level reference assembly as part of the Bat1K Project."
+         },
+         "owner":{
+            "name":"Max Planck Institute of Molecular Cell Biology and Genetics",
+            "contacts":[
+               {
+
+               }
+            ]
+         },
+         "models":[
+            "Model organism or animal"
+         ],
+         "bioprojects":[
+            {
+               "accession":"PRJNA628559"
+            }
+         ],
+         "package":"Model.organism.animal.1.0",
+         "attributes":[
+            {
+               "name":"isolate",
+               "value":"mMyoMyo1"
+            },
+            {
+               "name":"dev_stage",
+               "value":"adult"
+            },
+            {
+               "name":"sex",
+               "value":"female"
+            },
+            {
+               "name":"tissue",
+               "value":"flight muscle"
+            },
+            {
+               "name":"biomaterial_provider",
+               "value":"Emma Teeling, University College Dublin, School of Biology and Environmental Science, Science Centre - West Belfield Dublin 4"
+            },
+            {
+               "name":"birth_date",
+               "value":"unknown"
+            },
+            {
+               "name":"collected_by",
+               "value":"Emma Teeling, Sebastien Puechmaille"
+            },
+            {
+               "name":"collection_date",
+               "value":"2015"
+            },
+            {
+               "name":"geo_loc_name",
+               "value":"France: Limerzel"
+            },
+            {
+               "name":"lat_lon",
+               "value":"47.6333 N 2.3500 W"
+            },
+            {
+               "name":"store_cond",
+               "value":"SNAP frozen"
+            }
+         ],
+         "status":{
+            "status":"live",
+            "when":"2020-04-27T02:18:04.803"
+         }
+      },
+      "blast_url":"https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE_TYPE=BlastSearch&PROG_DEF=blastn&BLAST_SPEC=GDH_GCA_014108235.1"
+   },
+   "assembly_stats":{
+      "total_sequence_length":"2002780556",
+      "total_ungapped_length":"1973827151",
+      "number_of_contigs":630,
+      "contig_n50":12511134,
+      "contig_l50":41,
+      "number_of_scaffolds":92,
+      "scaffold_n50":94448911,
+      "scaffold_l50":7,
+      "number_of_component_sequences":92,
+      "gc_count":"850908054",
+      "gc_percent":43,
+      "genome_coverage":"90.9x",
+      "number_of_organelles":1
+   },
+   "organelle_info":[
+      {
+         "description":"Mitochondrion",
+         "total_seq_length":"17320",
+         "submitter":"Bat1K"
+      }
+   ],
+   "annotation_info":{
+      "name":"Annotation submitted by Bat1K",
+      "provider":"Bat1K",
+      "release_date":"2020-08-07",
+      "stats":{
+         "gene_counts":{
+            "total":21284,
+            "protein_coding":21284
+         }
+      }
+   },
+   "wgs_info":{
+      "wgs_project_accession":"JABWUV01",
+      "master_wgs_url":"https://www.ncbi.nlm.nih.gov/nuccore/JABWUV000000000.1",
+      "wgs_contigs_url":"https://www.ncbi.nlm.nih.gov/Traces/wgs/JABWUV01"
+   }
+}

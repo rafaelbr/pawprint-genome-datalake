@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "tax_id": {
+      "type": "integer"
+    },
+    "organism_name": {
+      "type": "string"
+    },
+    "common_name": {
+      "type": "string"
+    },
+    "genbank_common_name": {
+      "type": "string"
+    },
+    "acronyms": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "genbank_acronym": {
+      "type": "string"
+    },
+    "blast_name": {
+      "type": "string"
+    },
+    "lineage": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "children": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "descendent_with_described_species_names_count": {
+      "type": "integer"
+    },
+    "rank": {
+      "type": "string"
+    },
+    "has_described_species_name": {
+      "type": "boolean"
+    },
+    "counts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "count": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "min_ord": {
+      "type": "integer"
+    },
+    "max_ord": {
+      "type": "integer"
+    },
+    "extinct": {
+      "type": "boolean"
+    },
+    "genomic_moltype": {
+      "type": "string"
+    },
+    "_indexed_names": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

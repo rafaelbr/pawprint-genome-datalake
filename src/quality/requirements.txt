@@ -1,4 +1,5 @@
 pandas
 awswrangler
-great_expectations
+jsonschema
+jsonpointer
 boto3

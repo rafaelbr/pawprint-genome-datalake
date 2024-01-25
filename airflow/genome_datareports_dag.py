@@ -14,7 +14,8 @@ with DAG(
     dag_id='genome_datareports',
     tags=['genome', 'incremental-load', 'daily'],
     start_date=datetime(2023, 11, 21),
-    schedule_interval='@daily'
+    schedule_interval='@daily',
+    catchup=False
 ):
     @task()
     def init_job():
@@ -81,7 +82,7 @@ with DAG(
         for file in os.listdir('/opt/airflow/temp/genome_datareports/dataset_reports'):
             hook.load_file(
                 filename=f'/opt/airflow/temp/genome_datareports/dataset_reports/{file}',
-                key=f"genome/dataset_reports/date={ datetime.now().strftime('%Y-%m-%d') }/{file}",
+                key=f"pending/genome/dataset_report/date={ datetime.now().strftime('%Y-%m-%d') }/{file}",
                 bucket_name='geekfox-pawprint-raw',
                 replace=True
             )
